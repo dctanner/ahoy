@@ -23,7 +23,7 @@ module Ahoy
       report_exception(e)
     end
 
-    def track_visit(options = {})
+    def track_visit(options = {}, &block)
       unless exclude?
         if options[:defer]
           set_cookie("ahoy_track", true)
@@ -32,7 +32,7 @@ module Ahoy
 
           options[:started_at] ||= Time.zone.now
 
-          @store.track_visit(options)
+          @store.track_visit(options, &block)
         end
       end
       true
